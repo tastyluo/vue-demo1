@@ -37,6 +37,8 @@ const navStore = {
       name: '菜单二'
     }, {
       name: '菜单三'
+    }, {
+      name: '菜单四'
     }]
   }]
 }

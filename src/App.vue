@@ -1,20 +1,19 @@
 <template>
   <div id="app">
     <div class="top-nav">
-      
+      <!--<top-nav></top-nav>-->
+      <router-view class="view one"></router-view>
     </div>
   </div>
 </template>
 
 <script>
-  import monitorModule from './components/monitor/module'
-  import monitorModal from './components/modal/modal-layout'
-  import monitorData from './store/monitor'
+  import topNav from './components/navigation/topNav'
+  import leftNav from './components/navigation/leftNav'
 
   export default {
     data () {
       return {
-        data: monitorData.keyNode,
         modalVisible: false,
         info: ''
       }
@@ -22,44 +21,32 @@
     methods: {
       showModal () {
         this.modalVisible = true
-      },
-      getInfo () {
-        this.$http2.get('/api/info')
-          .then(response => {
-            this.info = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
       }
     },
     components: {
-      monitorModule,
-      monitorModal
+      'top-nav': topNav,
+      'left-nav': leftNav
     }
   }
 </script>
 
 <style>
+  body,
   div,
   span,
   ul,
-  li {
+  li,
+  a {
     margin: 0px;
     padding: 0px;
   }
-
-  #app {
-    padding: 10px;
-    width: 600px;
-    height: auto;
-    margin: 100px;
+  a {
+    text-decoration: none;
   }
 
-  .testInfo {
-    background: #CCC;
-    width: 50px;
-    height: 20px;
+  #app {
+    width: 100%;
+    height: 100%;
   }
 
 </style>

@@ -47,7 +47,7 @@ const getters = {
   // 获取顶部菜单
   topNav () {
     let topNav = []
-    this.navtree.foreach((item) => {
+    navStore.navtree.forEach((item) => {
       topNav.push({
         name: item.name,
         id: item.id
@@ -60,10 +60,10 @@ const getters = {
 const mutations = {
   // 获取左侧菜单
   leftNav (parentid) {
-    let subTree = this.navtree.filter((item) => {
+    let subTree = navStore.navtree.find((item) => {
       return item.id === parentid
     })
-    return subTree.length > 0 ? (subTree[0].hasOwnProperty('subnav') ? subTree[0].subnav : []) : []
+    return subTree.hasOwnProperty('subnav') ? subTree.subnav : []
   }
 }
 

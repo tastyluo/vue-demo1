@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import topNav from '@/components/navigation/topNav'
+// import topNav from '@/components/navigation/topNav'
 
 Vue.use(Router)
 
@@ -10,7 +10,7 @@ export default new Router({
     {
       path: '/',
       components: {
-        default: topNav
+        // default: topNav
       }
     }
   ]

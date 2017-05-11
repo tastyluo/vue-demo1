@@ -1,44 +1,43 @@
-
 const navStore = {
   navtree: [{
     name: '信息服务',
     id: 'xxfu',
     subnav: [{
-      name: '菜单一'
+      name: '信息服务_菜单一'
     }, {
-      name: '菜单二'
+      name: '信息服务_菜单二'
     }, {
-      name: '菜单三'
+      name: '信息服务_菜单三'
     }, {
-      name: '菜单四'
+      name: '信息服务_菜单四'
     }, {
-      name: '菜单五'
+      name: '信息服务_菜单五'
     }]
   }, {
     name: '常规调度',
     id: 'cgdd',
     subnav: [{
-      name: '菜单一'
+      name: '常规调度_菜单一'
     }, {
-      name: '菜单二'
+      name: '常规调度_菜单二'
     }, {
-      name: '菜单三'
+      name: '常规调度_菜单三'
     }, {
-      name: '菜单四'
+      name: '常规调度_菜单四'
     }, {
-      name: '菜单五'
+      name: '常规调度_菜单五'
     }]
   }, {
     name: '应急调度',
     id: 'yjdd',
     subnav: [{
-      name: '菜单一'
+      name: '应急调度_菜单一'
     }, {
-      name: '菜单二'
+      name: '应急调度_菜单二'
     }, {
-      name: '菜单三'
+      name: '应急调度_菜单三'
     }, {
-      name: '菜单四'
+      name: '应急调度_菜单四'
     }]
   }]
 }
@@ -59,10 +58,11 @@ const getters = {
 
 const mutations = {
   // 获取左侧菜单
-  leftNav (parentid) {
+  leftNav (state, obj) {
+    let topActiveMenu = obj.topActiveMenu
     let subTree = navStore.navtree.find((item) => {
-      return item.id === parentid
-    })
+      return item.id === topActiveMenu
+    }) || {}
     return subTree.hasOwnProperty('subnav') ? subTree.subnav : []
   }
 }
@@ -72,4 +72,3 @@ export default {
   getters,
   mutations
 }
-

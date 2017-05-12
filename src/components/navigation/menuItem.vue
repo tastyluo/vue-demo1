@@ -1,7 +1,5 @@
 <template>
-  <li class="menu-item" 
-    @click="activeMenu"
-    :class="itemClass">
+  <li class="menu-item" @click="activeMenu" :class="itemClass">
     <router-link to="/">{{name}}</router-link>
   </li>
 </template>
@@ -13,23 +11,31 @@ export default {
       type: String,
       default: ''
     },
+    parentId: {
+      type: String,
+      default: null
+    },
     id: {
       type: String,
-      default: ''
+      default: null
     },
-    selectedMenu: String
+    active: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     itemClass () {
       return {
-        active: this.selectedMenu === this.id
+        active: this.active
       }
     }
   },
   methods: {
     activeMenu () {
-      // 激活当前菜单
-      this.$emit('activeMenu', this.id)
+      this.$store.commit('activeTopMenu', {
+        activeMenuId: this.id
+      })
     }
   }
 }
@@ -39,9 +45,8 @@ export default {
 .menu-item {
   padding: 0 15px;
   &:hover {
-    cursor: pointer;
-    background-color: #475669;
-    transition:background-color 0.3s linear;
+    cursor: pointer; // border-bottom: 3px solid #C0CCDA;
+    // transition: border-bottom 0.3s linear;
   }
   a {
     text-decoration: none;
@@ -50,10 +55,10 @@ export default {
 }
 
 .active {
-  a {
-    color: #58B7FF;
-  }
-  background-color: #475669;
+  // a {
+  //   color: #58B7FF;
+  // }
+  background-color: #1D8CE0; // border-bottom: 3px solid #C0CCDA;
 }
 </style>
 

@@ -3,7 +3,7 @@
     <ul>
       <li class="toggle-left-nav">
         <div>
-          <icon name="navicon" scale="1.3"></icon>
+          <icon name="navicon" scale="1.3" @click="toggleLeftNav"></icon>
         </div>
       </li>
       <li class="logo">
@@ -11,11 +11,7 @@
       </li>
       <li class="layout-top-nav">
         <ul>
-          <menu-item 
-            v-for="item in navData" 
-            :key="item.id" 
-            v-bind="{name: item.name, id: item.id, selectedMenu: selectedMenu}" 
-            @activeMenu="selectMenu"></menu-item>
+          <menu-item v-for="item in navData" :key="item.id" v-bind="item"></menu-item>
         </ul>
       </li>
     </ul>
@@ -30,14 +26,7 @@ const systemName = '抚河流域水资源调度决策支持系统'
 export default {
   data () {
     return {
-      // 当前选中菜单的id
-      selectedMenu: '',
       systemName: systemName
-    }
-  },
-  watch: {
-    selectedMenu () {
-      this.$emit('activeMenu', this.selectedMenu)
     }
   },
   computed: {
@@ -49,6 +38,9 @@ export default {
   methods: {
     selectMenu (menuid) {
       this.selectedMenu = menuid
+    },
+    toggleLeftNav () {
+      this.$emit('toggleLeftNav')
     }
   },
   components: {
@@ -61,8 +53,9 @@ export default {
 <style lang="scss" scoped>
 .layout-top {
   width: 100%;
+  min-width: 1200px;
   height: 60px;
-  background-color: #324057;
+  background-color: #20A0FF;
   ul {
     li {
       float: left;

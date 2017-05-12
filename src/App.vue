@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="top-nav">
-      <top-nav @activeMenu="activeTopMenu"></top-nav>
-      <left-nav :topActiveMenu="topActiveMenu"></left-nav>
+      <top-nav @toggleLeftNav="toggleLeftNav"></top-nav>
+      <left-nav v-show="!isToggle"></left-nav>
       <router-view class="view one"></router-view>
     </div>
   </div>
@@ -15,15 +15,16 @@ import leftNav from './components/navigation/leftNav'
 export default {
   data () {
     return {
-      topActiveMenu: ''
+      topActiveMenu: '',
+      isToggle: false
     }
   },
   methods: {
-    showModal () {
-      this.modalVisible = true
-    },
     activeTopMenu (menuid) {
       this.topActiveMenu = menuid
+    },
+    toggleLeftNav () {
+      this.isToggle = true
     }
   },
   components: {

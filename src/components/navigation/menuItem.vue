@@ -59,6 +59,8 @@ export default {
   //   color: #58B7FF;
   // }
   background-color: #1D8CE0; // border-bottom: 3px solid #C0CCDA;
+  transition: background-color .2s linear;
+  -webkit-transition: background-color .2s linear;
 }
 </style>
 

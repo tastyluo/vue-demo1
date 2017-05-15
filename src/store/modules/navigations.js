@@ -15,6 +15,16 @@ const state = {
     name: '信息服务_菜单二',
     active: false
   }, {
+    id: 'xxfu_1_1',
+    parentId: 'xxfu_1',
+    name: '信息服务_菜单一_1',
+    active: false
+  }, {
+    id: 'xxfu_1_2',
+    parentId: 'xxfu_1',
+    name: '信息服务_菜单二_2',
+    active: false
+  }, {
     id: 'xxfu_3',
     parentId: 'xxfu',
     name: '信息服务_菜单三',
@@ -94,7 +104,7 @@ const getters = {
   },
   // 获取左侧菜单
   leftNav: state => {
-    let activeTopMenuId = (state.navtree.find(item => item.active) || {}).id
+    let activeTopMenuId = (state.navtree.find(item => item.parentId === '' && item.active) || {}).id
     return state.navtree.filter(item => item.parentId === activeTopMenuId)
   }
 }
@@ -103,13 +113,28 @@ const mutations = {
   // 选择顶部菜单
   activeTopMenu (state, obj) {
     let activeMenuId = obj.activeMenuId
-    state.navtree.forEach((item) => {
-      if (item.id === activeMenuId) {
-        item.active = true
-      } else {
-        item.active = false
-      }
-    })
+    state.navtree
+      .filter(item => item.parentId === '')
+      .forEach((item) => {
+        if (item.id === activeMenuId) {
+          item.active = true
+        } else {
+          item.active = false
+        }
+      })
+  },
+  // 选择左侧菜单
+  activeLeftMenu (state, obj) {
+    let activeMenuId = obj.activeMenuId
+    state.navtree
+      .filter(item => item.parentId !== '')
+      .forEach((item) => {
+        if (item.id === activeMenuId) {
+          item.active = true
+        } else {
+          item.active = false
+        }
+      })
   }
 }
 
@@ -118,3 +143,4 @@ export default {
   getters,
   mutations
 }
+

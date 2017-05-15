@@ -2,7 +2,10 @@
   <div id="app">
     <div class="top-nav">
       <top-nav @toggleLeftNav="toggleLeftNav"></top-nav>
-      <left-nav v-show="!isToggle"></left-nav>
+      <transition name="nav-toggle">
+        <left-nav v-show="!isToggle"></left-nav>
+      </transition>
+      <div class="main-container"></div>
       <router-view class="view one"></router-view>
     </div>
   </div>
@@ -24,7 +27,7 @@ export default {
       this.topActiveMenu = menuid
     },
     toggleLeftNav () {
-      this.isToggle = true
+      this.isToggle = !this.isToggle
     }
   },
   components: {
@@ -57,6 +60,27 @@ ul {
 #app {
   width: 100%;
   height: 100%;
+}
+
+.main-container {
+  height: 2000px;
+  width: 100%;
+}
+
+.nav-toggle-enter-active {
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+}
+
+.nav-toggle-leave-active {
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+}
+
+.nav-toggle-enter,
+.nav-toggle-leave-to {
+  transform: translateX(-200px);
+  opacity: .0;
 }
 </style>
 

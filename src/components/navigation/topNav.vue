@@ -2,16 +2,17 @@
   <div class="layout-top">
     <ul>
       <li class="toggle-left-nav">
-        <div>
-          <icon name="navicon" scale="1.3" @click="toggleLeftNav"></icon>
+        <div @click="toggleLeftNav">
+          <icon name="navicon" scale="1.3"></icon>
         </div>
       </li>
       <li class="logo">
-        <span>{{systemName}}</span>
+        <a href="/">{{systemName}}</a>
       </li>
       <li class="layout-top-nav">
         <ul>
-          <menu-item v-for="item in navData" :key="item.id" v-bind="item"></menu-item>
+          <menu-item v-for="item in navData" :key="item.id" v-bind="item">
+          </menu-item>
         </ul>
       </li>
     </ul>
@@ -29,6 +30,9 @@ export default {
       systemName: systemName
     }
   },
+  mounted () {
+    this.initSelect()
+  },
   computed: {
     // 使用对象展开运算符将 getters 混入 computed 对象中
     ...mapGetters({
@@ -41,6 +45,14 @@ export default {
     },
     toggleLeftNav () {
       this.$emit('toggleLeftNav')
+    },
+    initSelect () {
+      if (this.navData.length > 0) {
+        let menuid = this.navData[0].id
+        this.$store.commit('activeTopMenu', {
+          activeMenuId: menuid
+        })
+      }
     }
   },
   components: {
@@ -52,6 +64,7 @@ export default {
 
 <style lang="scss" scoped>
 .layout-top {
+  position: fixed;
   width: 100%;
   min-width: 1200px;
   height: 60px;
@@ -73,6 +86,9 @@ export default {
         height: 60px;
         svg {
           cursor: pointer;
+          &:hover {
+            color: #1F2D3D;
+          }
         }
       }
     }
@@ -80,6 +96,11 @@ export default {
       padding: 0 100px 0 20px;
       color: #fff;
       font-size: 20px;
+      a {
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

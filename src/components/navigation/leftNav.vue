@@ -1,23 +1,18 @@
 <template>
   <div class="layout-left">
     <transition-group tag="ul" name="left-nav">
-      <li v-for="(item, index) in navData" 
-        :key="item.id"
+      <menu-item v-for="(item, index) in navData" 
+        :key="item.id" 
         :data-index="index"
-        :class="{active: item.active}" 
-        @click="selectMenu(item.id)">
-        <icon name="home" scale="1.5" class="menu-icon"></icon>
-        <router-link to="/">{{item.name}}</router-link>
-        <div class="menu-toggle-arrow">
-          <icon name="angle-down" scale="1.2"></icon>
-        </div>
-      </li>
+        v-bind="item">
+      </menu-item>
     </transition-group>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+  import MenuItem from './leftMenuItem'
 
   export default {
     computed: {
@@ -27,11 +22,19 @@
       })
     },
     methods: {
-      selectMenu (menuid) {
+      selectMenu (menuId) {
         this.$store.commit('activeLeftMenu', {
-          activeMenuId: menuid
+          activeMenuId: menuId
+        })
+      },
+      getChildrenNav (menuId) {
+        return this.$store.commit('getChildrenNav', {
+          menuId: menuId
         })
       }
+    },
+    components: {
+      'menu-item': MenuItem
     }
   }
 
@@ -48,45 +51,17 @@
     margin-bottom: -2000px;
     padding-bottom: 2000px;
     font-size: 13px;
-    li {
-      height: 48px;
-      line-height: 48px;
-      padding: 0 10px;
-      position: relative;
-      box-sizing: border-box;
-      &:hover {
-        cursor: pointer;
-        background-color: #475669;
-        transition: background-color .2s linear;
-        -webkit-transition: background-color .2s linear;
-      }
-      svg {
-        // float: left;
-        // padding-right: 10px;
-        vertical-align: -5px;
-      }
-      svg.menu-icon {
-        padding-right: 10px;
-      }
-      .menu-toggle-arrow {
-        float: right;
-      }
-    }
-    .active {
-      background-color: #475669;
-      border-right: 5px solid #20A0FF;
-      // transition: all .2s linear;
-      // -webkit-transition: all .2s linear;
-    }
   }
-
-.left-nav-enter-active, .list-leave-active {
-  transition: all .2s;
-}
-.left-nav-enter, .left-nav-leave-to {
-  opacity: 0;
-  // transform: translateY(5px);
-}
+  
+  .left-nav-enter-active,
+  .list-leave-active {
+    transition: all .2s;
+  }
+  
+  .left-nav-enter,
+  .left-nav-leave-to {
+    opacity: 0; // transform: translateY(5px);
+  }
 
 </style>
 

@@ -20,89 +20,89 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import MenuItem from './menuItem'
-const systemName = '抚河流域水资源调度决策支持系统'
+  import { mapGetters } from 'vuex'
+  import MenuItem from './topMenuItem'
+  const systemName = '抚河流域水资源调度决策支持系统'
 
-export default {
-  data () {
-    return {
-      systemName: systemName
-    }
-  },
-  mounted () {
-    this.initSelect()
-  },
-  computed: {
-    // 使用对象展开运算符将 getters 混入 computed 对象中
-    ...mapGetters({
-      navData: 'topNav'
-    })
-  },
-  methods: {
-    selectMenu (menuid) {
-      this.selectedMenu = menuid
-    },
-    toggleLeftNav () {
-      this.$emit('toggleLeftNav')
-    },
-    initSelect () {
-      if (this.navData.length > 0) {
-        let menuid = this.navData[0].id
-        this.$store.commit('activeTopMenu', {
-          activeMenuId: menuid
-        })
+  export default {
+    data () {
+      return {
+        systemName: systemName
       }
+    },
+    mounted () {
+      this.initSelect()
+    },
+    computed: {
+      // 使用对象展开运算符将 getters 混入 computed 对象中
+      ...mapGetters({
+        navData: 'topNav'
+      })
+    },
+    methods: {
+      selectMenu (menuid) {
+        this.selectedMenu = menuid
+      },
+      toggleLeftNav () {
+        this.$emit('toggleLeftNav')
+      },
+      initSelect () {
+        if (this.navData.length > 0) {
+          let menuid = this.navData[0].id
+          this.$store.commit('activeTopMenu', {
+            activeMenuId: menuid
+          })
+        }
+      }
+    },
+    components: {
+      'menu-item': MenuItem
     }
-  },
-  components: {
-    'menu-item': MenuItem
   }
-}
 
 </script>
 
 <style lang="scss" scoped>
-.layout-top {
-  position: fixed;
-  width: 100%;
-  min-width: 1200px;
-  height: 60px;
-  background-color: #20A0FF;
-  ul {
-    li {
-      float: left;
-      height: 60px;
-      line-height: 60px;
-      margin: 0;
-      position: relative;
-      box-sizing: border-box;
-    }
-    li.toggle-left-nav {
-      color: #fff;
-      padding: 0 10px;
-      div {
-        line-height: 70px;
+  .layout-top {
+    position: fixed;
+    width: 100%;
+    min-width: 1200px;
+    height: 60px;
+    background-color: #20A0FF;
+    ul {
+      li {
+        float: left;
         height: 60px;
-        svg {
-          cursor: pointer;
+        line-height: 60px;
+        margin: 0;
+        position: relative;
+        box-sizing: border-box;
+      }
+      li.toggle-left-nav {
+        color: #fff;
+        padding: 0 10px;
+        div {
+          line-height: 70px;
+          height: 60px;
+          svg {
+            cursor: pointer;
+            &:hover {
+              color: #1F2D3D;
+            }
+          }
+        }
+      }
+      li.logo {
+        padding: 0 100px 0 20px;
+        color: #fff;
+        font-size: 20px;
+        a {
           &:hover {
-            color: #1F2D3D;
+            cursor: pointer;
           }
         }
       }
     }
-    li.logo {
-      padding: 0 100px 0 20px;
-      color: #fff;
-      font-size: 20px;
-      a {
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
   }
-}
 </style>
 

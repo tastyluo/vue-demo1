@@ -9,7 +9,6 @@ const state = {
     parentId: 'xxfu',
     name: '信息服务_菜单一',
     icon: 'home',
-    active: false,
     children: [{
       id: 'xxfu_1_1',
       parentId: 'xxfu_1',

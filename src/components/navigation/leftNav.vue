@@ -21,18 +21,6 @@
         navData: 'leftNav'
       })
     },
-    methods: {
-      selectMenu (menuId) {
-        this.$store.commit('activeLeftMenu', {
-          activeMenuId: menuId
-        })
-      },
-      getChildrenNav (menuId) {
-        return this.$store.commit('getChildrenNav', {
-          menuId: menuId
-        })
-      }
-    },
     components: {
       'menu-item': MenuItem
     }

@@ -34,7 +34,7 @@
     methods: {
       activeMenu () {
         this.$store.commit('activeTopMenu', {
-          activeMenuId: this.id
+          menuId: this.id
         })
       }
     }

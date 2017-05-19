@@ -1,18 +1,22 @@
 <template>
 
-  <li :class="menuItemClass" @click="selectMenu">
+  <li :class="menuItemCls" @click.stop="selectMenu">
     <div :class="{'menu-item': hasSubNav}">
       <icon v-if="icon" :name="icon" scale="1.5" class="menu-icon"></icon>
       <a href="javascript:void(0)" v-if="hasSubNav">{{name}}</a>
-      <router-link to="/" v-else>{{name}}</router-link>
-      <div v-if="hasSubNav" class="menu-toggle-arrow">
-        <icon name="angle-down" scale="1.2"></icon>
+      <router-link :to="routerTo" v-else>{{name}}</router-link>
+      <div v-if="hasSubNav" class="menu-arrow">
+        <icon name="angle-down" scale="1.2" :class="menuArrowCls"></icon>
       </div>
     </div>
   
-    <transition name="sub-nav">
-      <ul v-if="showSubNav" class="sub-nav">
-        <menu-item v-if="hasSubNav" 
+    <transition name="sub-nav" 
+      @before-enter="beforeEnter" 
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @after-leave="afterLeave">
+      <ul v-if="expand" class="sub-nav">
+        <menu-item
         v-for="(item, index) in children" 
         :key="item.id" 
         :data-index="index" 
@@ -30,10 +34,16 @@
   export default {
     name: 'menu-item',
     computed: {
-      menuItemClass () {
+      menuItemCls () {
         return {
           'active': this.active && !this.children,
           'menu-item': !this.children
+        }
+      },
+      menuArrowCls () {
+        return {
+          'menu-arrow': this.isRotate,
+          'menu-arrow-active': this.isRotate
         }
       },
       hasSubNav () {
@@ -42,7 +52,8 @@
     },
     data () {
       return {
-        showSubNav: false
+        showSubNav: false,
+        isRotate: false
       }
     },
     props: {
@@ -58,12 +69,20 @@
         type: String,
         default: null
       },
+      routerTo: {
+        type: String,
+        default: '/'
+      },
       active: {
         type: Boolean,
         default: null
       },
       icon: {
         type: String,
+        default: null
+      },
+      expand: {
+        type: Boolean,
         default: null
       },
       children: {
@@ -74,12 +93,26 @@
     methods: {
       selectMenu () {
         if (this.hasSubNav) {
-          this.showSubNav = !this.showSubNav
+          this.$store.commit('expandLeftMenu', {
+            menuId: this.id
+          })
         } else {
           this.$store.commit('activeLeftMenu', {
-            activeMenuId: this.id
+            menuId: this.id
           })
         }
+      },
+      beforeEnter () {
+        this.isRotate = true
+      },
+      afterEnter () {
+        this.isRotate = false
+      },
+      beforeLeave () {
+        this.isRotate = true
+      },
+      afterLeave () {
+        this.isRotate = false
       }
     }
   }
@@ -99,7 +132,8 @@
     -ms-user-select: none;
     user-select: none;
     &:hover {
-      cursor: pointer; // background-color: #454545;
+      cursor: pointer; 
+      // background-color: #454545;
       // transition: background-color .2s linear;
       // -webkit-transition: background-color .2s linear;
       // border-left: 5px solid #20A0FF;
@@ -114,7 +148,7 @@
     svg.menu-icon {
       padding-right: 2px;
     }
-    div.menu-toggle-arrow {
+    div.menu-arrow {
       float: right;
       svg {
         vertical-align: -3px;
@@ -137,6 +171,15 @@
       color: #20A0FF;
     }
   }
+
+  .menu-arrow {
+    transform: rotate(180deg);
+  }
+
+  .menu-arrow-active {
+    transform-origin: center center;
+    transition: all .2s ease;
+  }
   
   .sub-nav-enter-active {
     transition: all .2s ease;
@@ -148,9 +191,13 @@
     -webkit-transition: all .2s ease;
   }
   
-  .sub-nav-enter,
+  .sub-nav-enter {
+    transform: translateY(30px);
+    opacity: .0;
+  }
+
   .sub-nav-leave-to {
-    transform: translateY();
+    transform: translateY(30px);
     opacity: .0;
   }
 

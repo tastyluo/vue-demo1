@@ -50,7 +50,7 @@
         if (this.navData.length > 0) {
           let menuid = this.navData[0].id
           this.$store.commit('activeTopMenu', {
-            activeMenuId: menuid
+            menuId: menuid
           })
         }
       }

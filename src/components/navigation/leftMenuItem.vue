@@ -1,32 +1,30 @@
 <template>
-
   <li :class="menuItemCls" @click.stop="selectMenu">
     <div :class="{'menu-item': hasSubNav}">
       <icon v-if="icon" :name="icon" scale="1.5" class="menu-icon"></icon>
-      <a href="javascript:void(0)" v-if="hasSubNav">{{name}}</a>
-      <router-link :to="routerTo" v-else>{{name}}</router-link>
+      <span>{{name}}</span>
+      <!--<router-link :to="routerTo" v-else>{{name}}</router-link>-->
       <div v-if="hasSubNav" class="menu-arrow">
-        <icon name="angle-down" scale="1.2" :class="menuArrowCls"></icon>
+        <icon name="angle-up" scale="1.2" :class="menuArrowCls"></icon>
       </div>
     </div>
   
-    <transition name="sub-nav" 
-      @before-enter="beforeEnter" 
-      @after-enter="afterEnter"
-      @before-leave="beforeLeave"
-      @after-leave="afterLeave">
-      <ul v-if="expand" class="sub-nav">
-        <menu-item
-        v-for="(item, index) in children" 
-        :key="item.id" 
-        :data-index="index" 
-        v-bind="item">
+    <!--<transition name="sub-nav" 
+        @before-enter="beforeEnter" 
+        @after-enter="afterEnter" 
+        @before-leave="beforeLeave" 
+        @after-leave="afterLeave">-->
+  
+    <el-collapse-transition>
+      <ul v-show="expand" class="sub-nav">
+        <menu-item v-for="(item, index) in children" :key="item.id" :data-index="index" v-bind="item">
         </menu-item>
       </ul>
-    </transition>
+    </el-collapse-transition>
+  
+    <!--</transition>-->
   
   </li>
-
 </template>
 
 <script>
@@ -42,8 +40,8 @@
       },
       menuArrowCls () {
         return {
-          'menu-arrow': this.isRotate,
-          'menu-arrow-active': this.isRotate
+          'menu-arrow': true,
+          'menu-arrow-active': this.expand
         }
       },
       hasSubNav () {
@@ -52,8 +50,7 @@
     },
     data () {
       return {
-        showSubNav: false,
-        isRotate: false
+        showSubNav: false
       }
     },
     props: {
@@ -97,22 +94,12 @@
             menuId: this.id
           })
         } else {
+          // 编程式的导航
+          this.$router.push(this.routerTo)
           this.$store.commit('activeLeftMenu', {
             menuId: this.id
           })
         }
-      },
-      beforeEnter () {
-        this.isRotate = true
-      },
-      afterEnter () {
-        this.isRotate = false
-      },
-      beforeLeave () {
-        this.isRotate = true
-      },
-      afterLeave () {
-        this.isRotate = false
       }
     }
   }
@@ -124,16 +111,14 @@
     height: 48px;
     line-height: 48px;
     padding: 0 10px 0 10px;
-    position: relative;
-    // box-sizing: border-box;
+    position: relative; // box-sizing: border-box;
     // border: 5px solid transparent;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
     &:hover {
-      cursor: pointer; 
-      // background-color: #454545;
+      cursor: pointer; // background-color: #454545;
       // transition: background-color .2s linear;
       // -webkit-transition: background-color .2s linear;
       // border-left: 5px solid #20A0FF;
@@ -150,9 +135,9 @@
     }
     div.menu-arrow {
       float: right;
-      svg {
-        vertical-align: -3px;
-      }
+      // svg {
+      //   vertical-align: -3px;
+      // }
     }
   }
   
@@ -165,17 +150,17 @@
   
   .active {
     // background-color: #7F7F7F;
-    color: #20A0FF;
-    // border-left: 5px solid #20A0FF;
-    a {
-      color: #20A0FF;
-    }
+    color: #20A0FF; 
+    border-right: 5px solid #20A0FF;
+    // a {
+    //   color: #20A0FF;
+    // }
   }
-
+  
   .menu-arrow {
     transform: rotate(180deg);
   }
-
+  
   .menu-arrow-active {
     transform-origin: center center;
     transition: all .2s ease;
@@ -195,10 +180,9 @@
     transform: translateY(30px);
     opacity: .0;
   }
-
+  
   .sub-nav-leave-to {
     transform: translateY(30px);
     opacity: .0;
   }
-
 </style>

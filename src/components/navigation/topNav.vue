@@ -64,7 +64,6 @@
 
 <style lang="scss" scoped>
   .layout-top {
-    position: fixed;
     width: 100%;
     min-width: 1200px;
     height: 60px;

@@ -1,6 +1,6 @@
 <template>
   <li class="menu-item" @click="activeMenu" :class="itemClass">
-    <router-link to="/">{{name}}</router-link>
+    {{name}}
   </li>
 </template>
 
@@ -44,13 +44,10 @@
 <style lang="scss" scoped>
   .menu-item {
     padding: 0 15px;
+    color: #fff;
     &:hover {
       cursor: pointer; // border-bottom: 3px solid #C0CCDA;
       // transition: border-bottom 0.3s linear;
-    }
-    a {
-      text-decoration: none;
-      color: #fff;
     }
   }
   

@@ -14,13 +14,13 @@ const state = {
       id: 'xxfu_1_1',
       parentId: 'xxfu_1',
       name: '信息服务_菜单一_1',
-      routerTo: '/',
+      routerTo: '/hello',
       active: false
     }, {
       id: 'xxfu_1_2',
       parentId: 'xxfu_1',
       name: '信息服务_菜单一_2',
-      routerTo: '/',
+      routerTo: '/monitor',
       active: false
     }]
   }, {

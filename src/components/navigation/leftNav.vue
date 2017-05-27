@@ -30,14 +30,14 @@
 
 <style lang="scss" scoped>
   .layout-left {
-    width: 200px;
-    position: fixed;
+    // min-width: 200px;
+    min-height: 2000px;
     background-color: #333; // border-top: 1px solid #8492A6;
     color: #fff;
-    float: left;
-    margin-top: 60px;
-    margin-bottom: -2000px;
-    padding-bottom: 2000px;
+    // float: left;
+    // margin-top: 60px;
+    // margin-bottom: -2000px;
+    // padding-bottom: 2000px;
     font-size: 13px;
   }
   

@@ -11,9 +11,11 @@ import router from './router'
 import store from './store'
 import Icon from 'vue-awesome/components/Icon'
 import app from './App.vue'
+import eCharts from 'vue-echarts'
 
 // globally (in your main .js file)
 Vue.component('icon', Icon)
+Vue.component('chart', eCharts)
 Vue.prototype.$http = axios
 Vue.use(Vuex)
 Vue.use(ElementUI)

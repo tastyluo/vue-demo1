@@ -7,19 +7,21 @@ const state = {
   }, {
     id: 'xxfu_1',
     parentId: 'xxfu',
-    name: '信息服务_菜单一',
+    name: '年调度计划',
     icon: 'home',
     expand: false,
     children: [{
       id: 'xxfu_1_1',
       parentId: 'xxfu_1',
-      name: '信息服务_菜单一_1',
+      name: '方案管理',
+      icon: 'list-alt',
       routerTo: '/hello',
       active: false
     }, {
       id: 'xxfu_1_2',
       parentId: 'xxfu_1',
-      name: '信息服务_菜单一_2',
+      name: '方案制作',
+      icon: 'gavel',
       routerTo: '/monitor',
       active: false
     }]

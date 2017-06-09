@@ -128,10 +128,10 @@
     svg {
       // float: left;
       // padding-right: 10px;
-      vertical-align: -6px;
+      vertical-align: -5px;
     }
     svg.menu-icon {
-      padding-right: 2px;
+      padding-right: 10px;
     }
     div.menu-arrow {
       float: right;

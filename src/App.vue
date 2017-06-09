@@ -13,11 +13,12 @@
         </transition>
       </div>
       <div :class="['page-body-main', { 'page-body-main-left': !navToggle }]">
-        <transition name="el-zoom-in-center">
+        <transition name="view-fade-in">
           <router-view class="main-view"></router-view>
         </transition>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -29,18 +30,10 @@
     data () {
       return {
         topActiveMenu: '',
-        navToggle: false,
-        mainWidthPer: 21
+        navToggle: false
       }
     },
     watch: {
-      navToggle (newVal) {
-        if (newVal) {
-          this.mainWidthPer = 24
-        } else {
-          this.mainWidthPer = 21
-        }
-      }
     },
     methods: {
       activeTopMenu (menuid) {
@@ -58,12 +51,7 @@
 </script>
 
 <style lang="scss">
-  body,
-  div,
-  span,
-  ul,
-  li,
-  a {
+  body, div, span, ul, li, a, p, h1, h2, h3, h4, h5 {
     margin: 0px;
     padding: 0px;
   }
@@ -112,6 +100,17 @@
 
   .page-body-main-left {
     margin-left: 200px;
+  }
+
+  .view-fade-in-enter-active {
+    transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+  }
+
+  .view-fade-in-enter,
+  .view-fade-in-leave-to {
+    // transform: translateX(100px);
+    opacity: .0;
   }
   
   .nav-toggle-enter-active,

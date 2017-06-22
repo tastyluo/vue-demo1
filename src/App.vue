@@ -82,7 +82,7 @@
     position: relative;
     top: 60px;
     left: 0;
-    min-width: 1200px;
+    // min-width: 1200px;
   }
   
   .page-body-nav {
@@ -94,7 +94,7 @@
   .page-body-main {
     // position: absolute;
     z-index: 2;
-    height: 1000px;
+    // height: 1000px;
     padding: 10px;
   }
 

@@ -2,8 +2,7 @@
   <div class="my-step">
     <div class="my-step-row">
       <div class="my-step-arrow">
-        <i :class="arrowPrevCls"
-        @click="prev"></i>
+        <i :class="arrowPrevCls" @click="prev"></i>
       </div>
       <div class="my-step-main">
         <el-steps :active="active" :align-center="true" :center="true" finish-status="success">
@@ -12,8 +11,7 @@
         </el-steps>
       </div>
       <div class="my-step-arrow">
-        <i :class="arrowNextCls"
-        @click="next"></i>
+        <i :class="arrowNextCls" @click="next"></i>
       </div>
       <div class="my-step-control">
         <div class="my-step-control-wrap">
@@ -92,7 +90,7 @@
 
 <style lang="scss" scoped>
   .my-step {
-    margin: 10px 0;
+    // margin: 10px 0;
     width: 100%;
     display: table;
     .my-step-row {
@@ -101,7 +99,8 @@
         display: table-cell;
         width: 30px;
         i {
-           margin-top: 8px;
+          margin-top: 6px;
+          font-size: 20px;
         }
       }
       .my-step-main {
@@ -109,7 +108,7 @@
       }
       .my-step-control {
         display: table-cell;
-        width: 200px;
+        // width: 200px;
         position: relative;
         .my-step-control-wrap {
           position: absolute;
@@ -119,11 +118,11 @@
       }
     }
   }
-
+  
   .is-success {
     color: #97a8be;
   }
-
+  
   .step-arrow-abled {
     color: #20A0FF;
     &:hover {
@@ -131,12 +130,11 @@
       color: #58B7FF;
     }
   }
-
+  
   .step-arrow-disabled {
     color: #bfcbd9;
     &:hover {
       cursor: default;
     }
   }
-  
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="hello-form">
     <page-step v-bind="{'steps': steps, 'active': active}" @prev="prev" @next="next">
-      <el-button-group slot="step-control">
+      <!--<el-button-group slot="step-control">
         <el-button type="primary" size="small" >计算</el-button>
         <el-button type="primary" size="small" >保存</el-button>
-      </el-button-group>
+      </el-button-group>-->
     </page-step>
     <component v-bind:is="currentView">
       <!-- 组件在 vm.currentview 变化时改变！ -->
@@ -14,6 +14,7 @@
 
 <script>
   import PageStep from '@/components/step/pageStep'
+  import Flex from '@/components/pages/flexDemo'
   import Example from '@/components/pages/example'
   import WaterSupplyCal from '@/components/pages/waterSupplyCal'
   export default {
@@ -34,7 +35,7 @@
         }],
         active: 0,
         viewMap: {
-          0: 'example',
+          0: 'flex',
           1: 'water-supply-cal',
           2: 'example',
           3: 'example'
@@ -62,6 +63,7 @@
     components: {
       'page-step': PageStep,
       'example': Example,
+      'flex': Flex,
       'water-supply-cal': WaterSupplyCal
     }
   }
